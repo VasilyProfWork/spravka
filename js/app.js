@@ -242,13 +242,22 @@
     const menuBody = document.querySelector(".menu");
     const lock = document.querySelector("html");
     if (iconMenu) iconMenu.addEventListener("click", (function(e) {
-        lock.classList.toggle("lock");
+        if (!lock.classList.contains("lock")) lock.classList.add("lock");
+        if (navigationButton.classList.contains("navigation-active")) lock.classList.add("lock");
+        if (!navigationButton.classList.contains("navigation-active") && menuBody.classList.contains("menu-open")) lock.classList.remove("lock");
         iconMenu.classList.toggle("menu-open");
         menuBody.classList.toggle("menu-open");
     }));
     window.addEventListener("DOMContentLoaded", (function() {
         let bodyTeg = document.querySelector("body");
         if (bodyTeg) bodyTeg.classList.remove("preload");
+    }));
+    const navigationButton = document.querySelector(".navigation-button");
+    const navigation = document.querySelector(".navigation");
+    if (navigationButton) navigationButton.addEventListener("click", (function() {
+        navigationButton.classList.toggle("navigation-active");
+        navigation.classList.toggle("navigation-open");
+        lock.classList.toggle("lock");
     }));
     function script_location() {
         const location = document.querySelector(".header__number");
